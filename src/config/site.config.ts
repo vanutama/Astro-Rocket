@@ -258,14 +258,14 @@ export interface SiteConfig {
 }
 
 const siteConfig: SiteConfig = {
-  name: 'Astro Rocket',
+  name: 'Vanutama',
   description:
-    'Astro Rocket is a free, lightning-fast Astro 7 starter theme to build anything on — with 57+ designed components, 12 colour themes, dark mode, and built-in i18n on board.',
-  tagline: 'Astro 7 starter theme to build anything on',
+    'Vanutama is a personal blog about Bible, theology, and faith.',
+  tagline: 'Your reading companion for Bible, theology, and faith.',
   footerNote: 'Free & open source · MIT licensed',
-  url: SITE_URL || 'https://astrorocket.dev',
+  url: SITE_URL || 'https://vanutama.vercel.com',
   ogImage: '/og-default.svg',
-  author: 'Hans Martens',
+  author: 'Yedija Vanutama',
   email: 'hello@hansmartens.dev',
   address: {
     street: '',
@@ -364,7 +364,7 @@ const siteConfig: SiteConfig = {
   i18n: i18nConfig,
   branding: {
     logo: {
-      alt: 'Astro Rocket',
+      alt: 'Vanutama',
       // image: '/logo.svg', // Optional: set to a file in public/ to use a custom logo image instead of the letter monogram.
       imageUrl: '/favicon.svg',
     },
