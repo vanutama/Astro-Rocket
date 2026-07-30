@@ -263,7 +263,7 @@ const siteConfig: SiteConfig = {
     'Vanutama is a personal blog about Bible, theology, and faith.',
   tagline: 'Your reading companion for Bible, theology, and faith.',
   footerNote: 'Free & open source · MIT licensed',
-  url: SITE_URL || 'https://vanutama.vercel.com',
+  url: SITE_URL || 'https://vanutama.vercel.app',
   ogImage: '/og-default.svg',
   author: 'Yedija Vanutama',
   email: 'hello@hansmartens.dev',
