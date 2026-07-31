@@ -1,5 +1,6 @@
 import { SITE_URL, GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION } from 'astro:env/server';
 import i18nConfig, { type I18nConfig } from './i18n.config';
+import { SITE_URL_FALLBACK } from './site-url';
 
 export { i18nConfig };
 export type { I18nConfig };
