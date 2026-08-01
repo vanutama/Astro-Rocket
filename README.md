@@ -56,7 +56,7 @@
 
 ## Overview
 
-Astro Rocket is a **free, lightning-fast Astro 7 starter theme to build anything on**. Its heart is a complete component library: 57 designed, accessible, TypeScript components that all speak one design language — so whatever you build with them looks right. Around that library it brings everything a real website needs: pages to start from, a full blog, search, SEO, i18n, dark mode, and 12 colour themes. It's made for web designers, developers, bloggers, and anyone who wants to build a beautiful website without starting from zero. Use all of it or only the parts you need — the website you build on it is yours.
+Astro Rocket is a **free, lightning-fast Astro 7 starter theme to build anything on**. Its heart is a complete component library: 44 designed, accessible, TypeScript components that all speak one design language — so whatever you build with them looks right. Around that library it brings everything a real website needs: pages to start from, a full blog, search, SEO, i18n, dark mode, and 12 colour themes. It's made for web designers, developers, bloggers, and anyone who wants to build a beautiful website without starting from zero. Use all of it or only the parts you need — the website you build on it is yours.
 
 Built on Astro 7 and Tailwind CSS v4.
 
@@ -75,7 +75,7 @@ Built on Astro 7 and Tailwind CSS v4.
 | **12 Colour Themes** | All 12 colour swatches are shown in the header dropdown — click one and the logo badge, blog image gradients, and every brand color update live instantly. No file edits, no rebuilds. The selector can be removed from the header once you've settled on a color. |
 | **Scroll Progress Bar** | A thin 2px brand-coloured bar on the header edge that fills as you scroll. Enabled on the homepage (above the floating header), blog index, and post pages (below the solid header). Controlled via `showScrollProgress` and `scrollProgressPosition` props on the Header component. |
 | **Design Tokens** | Three-tier token architecture (reference → semantic → component) |
-| **57 Components** | 33 UI, 7 patterns, 1 hero, 4 layout, 4 blog, 7 landing, 3 SEO — all accessible with TypeScript |
+| **44 Components** | 34 UI, 7 patterns, 2 layout, 1 hero — every entry in `component-registry.json`, all accessible with TypeScript |
 | **Auto Logo & Favicon** | First letter of your site name on brand color — generated automatically from `site.config.ts`, no design tools needed. Prefer your own logo? Set `branding.logo.image` to a file in `public/`. |
 | **Icon System** | Unified `Icon` component (Astro + React) — 350+ [Lucide](https://lucide.dev) UI icons and 3000+ [Simple Icons](https://simpleicons.org) brand icons via Iconify |
 | **Typing Effect** | Animated typing effect in the hero section |
@@ -254,7 +254,7 @@ astro-rocket/
 ├── src/
 │   ├── assets/              # Images and icons (processed by Astro)
 │   ├── components/
-│   │   ├── ui/              # UI component library (31 components)
+│   │   ├── ui/              # UI component library (34 components)
 │   │   │   ├── form/        # Button, Input, Textarea, Select, Checkbox, Radio, Switch
 │   │   │   ├── data-display/ # Card, Badge, Avatar, Table, Pagination, Progress, Skeleton
 │   │   │   ├── feedback/    # Alert, Toast, Tooltip
@@ -358,7 +358,7 @@ PUBLIC_GTM_ID=GTM-XXXXXXX
 
 # Optional - Umami (privacy-friendly, cookieless analytics)
 PUBLIC_UMAMI_WEBSITE_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-# PUBLIC_UMAMI_SRC=https://cloud.umami.is/script.js   # override to self-host
+# PUBLIC_UMAMI_SRC=https://cloud.umami.is/script.js   # set when your snippet's src differs
 
 # Optional - Contact form and newsletter (server-side only)
 RESEND_API_KEY=your-resend-api-key
@@ -369,7 +369,11 @@ GOOGLE_SITE_VERIFICATION=your-code
 BING_SITE_VERIFICATION=your-code
 ```
 
-Astro Rocket ships with built-in support for **Google Analytics 4**, **Google Tag Manager**, and **Umami**. For Umami, set `PUBLIC_UMAMI_WEBSITE_ID` (the UUID from your Umami dashboard) and the tracking script loads automatically — it defaults to Umami Cloud, so override `PUBLIC_UMAMI_SRC` only when you self-host. Umami is cookieless and stores no personal data, so it loads without the cookie-consent banner.
+Astro Rocket ships with built-in support for **Google Analytics 4**, **Google Tag Manager**, and **Umami**. For Umami, set `PUBLIC_UMAMI_WEBSITE_ID` (the UUID from your Umami dashboard) and the tracking script loads automatically. Umami is cookieless and stores no personal data, so it loads without the cookie-consent banner.
+
+Copy the Website ID **and** the script `src` out of the tracking snippet Umami shows you, and set `PUBLIC_UMAMI_SRC` whenever that `src` is not `https://cloud.umami.is/script.js` — which covers self-hosting and Umami Cloud's other instances alike. Set the **Domain** on the Umami website record to your bare hostname (`yoursite.com`), since Umami rejects events whose origin does not match it.
+
+Both are the same silent failure: the script loads, the page is fine, and nothing is recorded. After deploying, check the **Network** tab for `POST /api/send` returning 200 — a successful `script.js` request proves only that the file was fetched.
 
 ### Newsletter Signup
 
@@ -537,7 +541,7 @@ Foreground tokens are documented with their contrast ratios inline. When customi
 
 ## Components
 
-Astro Rocket includes 57 components across 7 categories. All UI components use [class-variance-authority (CVA)](https://cva.style) for type-safe variant management.
+Astro Rocket includes 44 components across four categories. All UI components use [class-variance-authority (CVA)](https://cva.style) for type-safe variant management.
 
 ### UI Components (31)
 
@@ -697,9 +701,23 @@ Your content here...
 
 To link from one post to another, use `<PostLink uid="target-post-id">link text</PostLink>` in your MDX instead of a hard-coded `/blog/...` URL. The id resolves to the right URL at build time, and a broken reference fails the build — so renaming a post never leaves a dead internal link. Give a post an optional `uid` (above) to make it a link target. The [configuration guide](/blog/astro-rocket-configuration-guide) post has the full walkthrough.
 
+### Project Cards
+
+Projects live in `src/content/projects/<locale>/` (the bundled ones in `src/content/projects/en/`) as one MDX file per project. Each one carries an `icon` — any [Lucide](https://lucide.dev/icons/) name — shown on its card in the projects listing and on the homepage:
+
+```yaml
+---
+title: "E-Commerce Store"
+description: "..."
+icon: "shopping-bag"
+---
+```
+
+Give every project its own. The card is mostly text, so one repeated icon across the grid makes them read as placeholders. Unset, it falls back to `layers`.
+
 ### Project Galleries
 
-Projects live in `src/content/projects/<locale>/` (the bundled ones in `src/content/projects/en/`) as one MDX file per project, and there are two ways to show more than one image.
+There are two ways to show more than one image on a project.
 
 **1. Hero carousel (frontmatter).** Add a `gallery` array and the project hero swaps the single `image` for a swipeable carousel (touch swipe, prev/next arrows, dot indicators, keyboard navigation). The first slide is the lead image:
 
@@ -889,7 +907,7 @@ DEPLOY_TARGET=cloudflare pnpm build
 npx wrangler deploy
 ```
 
-The build generates the Worker and static-asset config automatically; the bundled `wrangler.toml` adds the `nodejs_compat` flag the API routes need. Prefer the dashboard? In **Workers & Pages → Create → Connect to Git**, set the build command to `DEPLOY_TARGET=cloudflare pnpm build`. Either way, add your secrets — `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_AUDIENCE_ID` — plus `SITE_URL` as environment variables so the contact form and newsletter work.
+The build generates the Worker and static-asset config automatically. The bundled `wrangler.toml` deliberately does **not** set `nodejs_compat`: the adapter prerenders every page inside workerd at build time, and that flag makes the prerender emit `[object Object]` instead of HTML for every page, without failing the build. If the contact form or newsletter need Node built-ins once deployed, set the flag on the Worker in the Cloudflare dashboard rather than in `wrangler.toml`. Prefer the dashboard? In **Workers & Pages → Create → Connect to Git**, set the build command to `DEPLOY_TARGET=cloudflare pnpm build`. Either way, add your secrets — `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_AUDIENCE_ID` — plus `SITE_URL` as environment variables so the contact form and newsletter work.
 
 ### Static export (no serverless)
 
